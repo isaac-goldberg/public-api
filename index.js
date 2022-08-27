@@ -22,10 +22,15 @@ app.listen(PORT, () => {
     console.log(`Server online on port ${PORT}`);
 
     refreshAPI();
+
+    setInterval(() => {
+        refreshAPI();
+    }, 60_000);
 });
 
 async function refreshAPI () {
     const serverCount = await reqBotServers();
+    console.log(serverCount)
     globals["ticketbot-servercount"] = serverCount;
 }
 
