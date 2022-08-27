@@ -8,7 +8,9 @@ var globals = {
     "ticketbot-servercount": "",
 };
 
-app.get("/", (req, res) => res.send("You are using Isaac's public API!"));
+app.get("/", (req, res) => {
+    res.send("You are using Isaac's public API!");
+});
 
 app.get("/api/ticketbot-servercount", (req, res) => {
     res.json({
