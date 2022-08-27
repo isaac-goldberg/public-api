@@ -48,7 +48,6 @@ async function reqBotServers () {
     });
 
     const data = await promise;
-    console.log("making request")
     app.globals["ticketbot-servercount"].data = data;
     app.globals["ticketbot-servercount"].timestamp = Date.now();
     return data;
