@@ -43,3 +43,5 @@ async function reqBotServers () {
         });
     });
 }
+
+module.exports = app;
