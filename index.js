@@ -1,14 +1,19 @@
 const express = require("express");
+const cors = require("cors");
 const phin = require("phin");
 
-var app = express();
+const app = express();
+app.use(cors());
+
 const PORT = process.env.PORT || 8888;
 const TOPGG_API_KEY = process.env.TOPGG_API_KEY || require("./dev.json").TOPGG_API_KEY;
 app.globals = {
-    "ticketbot-servercount": {
-        data: "",
-        timestamp: null,
-    },
+    ticketbot: {
+        servercount: {
+            data: "",
+            timestamp: null,
+        },
+    }
 };
 
 app.get("/", (req, res) => {
@@ -27,11 +32,11 @@ app.listen(PORT, () => {
     console.log(`Server online on port ${PORT}`);
 });
 
-async function reqBotServers () {
+async function reqBotServers() {
     let interval = 60_000;
-    let timestamp = app.globals["ticketbot-servercount"].timestamp || 0;
-    if (Date.now() - timestamp < interval) {
-        return app.globals["ticketbot-servercount"].data;
+    let timestamp = app.globals.ticketbot.servercount.timestamp || 0;
+    if ((Date.now() - timestamp) < interval) {
+        return app.globals.ticketbot.servercount.data;
     }
 
     const promise = new Promise((resolve, _reject) => {
@@ -48,8 +53,8 @@ async function reqBotServers () {
     });
 
     const data = await promise;
-    app.globals["ticketbot-servercount"].data = data;
-    app.globals["ticketbot-servercount"].timestamp = Date.now();
+    app.globals.ticketbot.servercount.data = data;
+    app.globals.ticketbot.servercount.timestamp = Date.now();
     return data;
 }
 
