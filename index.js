@@ -17,7 +17,9 @@ app.globals = {
 };
 
 app.get("/", (req, res) => {
-    res.send("You are using Isaac's public API!");
+    res.json({
+        message: "You are using Isaac's public API!",
+    });
 });
 
 app.get("/api/ticketbot-servercount", async (req, res) => {
